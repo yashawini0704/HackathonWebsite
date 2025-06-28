@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmaan - AI Innovation Hackathon | DesiCrew</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('file:///C:/Users/DELL/Desktop/Countdown/AI.avif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -2;
+            filter: brightness(0.3) blur(2px);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 46, 0.7) 50%, rgba(22, 33, 62, 0.8) 100%);
+            z-index: -1;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00eaff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            max-height: 100px;
+            filter: drop-shadow(0 0 20px rgba(0, 230, 255, 0.5));
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #00eaff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 230, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00eaff 0%, #00b8cc 50%, #0099aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 230, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00eaff 0%, #00b8cc 100%);
+            color: #0a0a0a;
+            box-shadow: 0 0 30px rgba(0, 230, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 230, 255, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #00eaff;
+            border: 2px solid #00eaff;
+            box-shadow: 0 0 20px rgba(0, 230, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 230, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 230, 255, 0.4);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00eaff, #00b8cc, #00eaff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 230, 255, 0.1);
+            border-color: rgba(0, 230, 255, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #00eaff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: #00eaff;
+        }
+        
+        .card-content {
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+        
+        .prize-section {
+            background: linear-gradient(135deg, rgba(0, 230, 255, 0.1) 0%, rgba(0, 184, 204, 0.05) 100%);
+            border: 1px solid rgba(0, 230, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .prize-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00eaff;
+            text-shadow: 0 0 20px rgba(0, 230, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+        
+        .prize-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .prize-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 230, 255, 0.2);
+        }
+        
+        .prize-position {
+            font-weight: 600;
+            color: #00eaff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .organizing-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 230, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 230, 255, 0.1);
+        }
+        
+        .member-role {
+            font-size: 0.875rem;
+            color: #00eaff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .member-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-email {
+            font-size: 0.875rem;
+            color: #b0b0b0;
+            text-decoration: none;
+        }
+        
+        .member-email:hover {
+            color: #00eaff;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00eaff, transparent);
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.25rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        /* Generate particles */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+        
+        /* Theme Cards Styles */
+        .theme-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 230, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00eaff, #00b8cc, #00eaff);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .theme-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 230, 255, 0.15);
+            border-color: rgba(0, 230, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .theme-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .theme-icon {
+            font-size: 1.5rem;
+            color: #00eaff;
+            filter: drop-shadow(0 0 10px rgba(0, 230, 255, 0.5));
+        }
+        
+        .theme-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00eaff;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(0, 230, 255, 0.3);
+        }
+        
+        .theme-examples {
+            color: #e0e0e0;
+        }
+        
+        .theme-examples ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .theme-examples li {
+            padding: 0.25rem 0;
+            transition: color 0.3s ease;
+        }
+        
+        .theme-card:hover .theme-examples li {
+            color: #ffffff;
+        }
+        
+        /* Glow animation for theme cards */
+        @keyframes themeGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 255, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(0, 230, 255, 0.2); }
+        }
+        
+        .theme-card:hover {
+            animation: themeGlow 2s ease-in-out infinite;
+        }
+        
+        /* Phase Dropdown Styles */
+        .phase-dropdown {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .phase-dropdown:hover {
+            border-color: rgba(0, 230, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 230, 255, 0.1);
+        }
+        
+        .phase-header {
+            width: 100%;
+            background: rgba(0, 230, 255, 0.05);
+            border: none;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        
+        .phase-header:hover {
+            background: rgba(0, 230, 255, 0.1);
+        }
+        
+        .phase-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .phase-icon {
+            font-size: 1.2rem;
+            color: #00eaff;
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-header.active .phase-icon {
+            transform: rotate(90deg);
+        }
+        
+        .phase-title span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00eaff;
+        }
+        
+        .phase-date {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-right: 1rem;
+        }
+        
+        .dropdown-arrow {
+            font-size: 1rem;
+            color: #00eaff;
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-header.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .phase-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .phase-content.active {
+            max-height: 2000px;
+        }
+        
+        .phase-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 230, 255, 0.1);
+        }
+        
+        .phase-section:last-child {
+            border-bottom: none;
+        }
+        
+        .phase-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #00eaff;
+            margin-bottom: 1rem;
+        }
+        
+        .phase-subtitle i {
+            font-size: 1rem;
+        }
+        
+        .phase-description {
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .phase-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .phase-list li {
+            color: #e0e0e0;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .phase-list li::before {
+            content: '•';
+            color: #00eaff;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .phase-note {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #ffc107;
+        }
+        
+        .phase-note i {
+            font-size: 1.1rem;
+        }
+        
+        .phase-placeholder {
+            padding: 2rem;
+            text-align: center;
+            color: #b0b0b0;
+        }
+        
+        .phase-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #00eaff;
+        }
+        
+        /* Timeline Styles */
+        .timeline-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 15px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 230, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 230, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 230, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00eaff, #00b8cc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0, 230, 255, 0.3);
+        }
+        
+        .timeline-icon i {
+            font-size: 1.5rem;
+            color: #0a0a0a;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00eaff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 230, 255, 0.3);
+        }
+        
+        .timeline-date {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+        
+        /* Responsive timeline */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .timeline-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .timeline-icon i {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="overlay"></div>
+    
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="logo-container">
+                <img src="file:///C:/Users/DELL/Downloads/desicrew_logo.png" alt="DesiCrew Logo" class="mx-auto mb-6" style="max-height: 100px; filter: drop-shadow(0 0 20px rgba(0, 230, 255, 0.5));">
+            </div>
+            
+            <p class="tagline">BUILDING THE FUTURE WITH AI</p>
+            <h1 class="main-title">NIRMAAN</h1>
+            <p class="subtitle" style="text-shadow: 0 0 15px rgba(0, 230, 255, 0.6); animation: glow 2s ease-in-out infinite alternate;">AI Innovation Hackathon <br> Organized by Project Vikram</p>
+            <div class="cta-buttons">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJYv7GhUy94dC-tCKYwkmzYUDMIbBC9wYapt9DH1MdPf1L5g/viewform?usp=header" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-rocket"></i>
+                    Register Now
+                </a>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <!-- Objective Section - Full Width -->
+        <div class="content-card mb-8" style="grid-column: 1 / -1;">
+            <h2 class="card-title">
+                <i class="fas fa-bullseye card-icon"></i>
+                Objective
+            </h2>
+            <div class="card-content">
+                <p class="mb-4">We are launching DesiCrew's first company-wide AI hackathon. It is designed to help Crewmates across all DC centres explore and apply AI tools (without any coding) to solve real workplace problems. The objective is to reduce manual effort, save time, and improve internal processes.</p>
+                <p>This initiative is open to all DC crewmates and encourages collaboration across teams and centres. It will focus not just on final outputs but on consistent participation, learning, and problem-solving using AI-based tools.</p>
+            </div>
+        </div>
+
+        <!-- Other Sections - Grid Layout -->
+        <div class="content-grid">
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-users card-icon"></i>
+                    Participation
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                            <span>Team size: 3 to 5 members</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                            <span>Each team must include one DNext Leader as a full participant</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-gavel card-icon"></i>
+                    Judging Criteria
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Clarity of problem and relevance</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Functionality of the solution</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Ease of use by other teams</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Demonstrated effort and learning during the process</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-trophy card-icon"></i>
+                    Post Hackathon
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>Winning tools will be refined with support from Project Vikram</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>Functional tools will be implemented across teams where applicable</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>All working solutions will be showcased in DC's AI Solutions Library</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>Select tools and stories will be featured on Vikram's & DC's website and social media</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Idea Themes Section -->
+        <section class="mb-8">
+            <div class="content-card mb-6" style="grid-column: 1 / -1;">
+                <h2 class="card-title text-center mb-6">
+                    <i class="fas fa-lightbulb card-icon"></i>
+                    Idea Themes
+                </h2>
+                <p class="text-center text-gray-300 mb-6">Teams must ensure their ideas fall into one of the following themes. Take inspiration from the examples or create your own innovative solutions!</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- HR & Admin -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-users-cog theme-icon"></i>
+                            <h3 class="theme-title">HR & Admin</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Tools to manage attendance, leaves</li>
+                                <li>• Expense tracking systems</li>
+                                <li>• Performance management tools</li>
+                                <li>• Event management solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Training & Learning -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-graduation-cap theme-icon"></i>
+                            <h3 class="theme-title">Training & Learning</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Auto-generated quizzes</li>
+                                <li>• Training content creation</li>
+                                <li>• Learning nudges & reminders</li>
+                                <li>• Progress tracking systems</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Performance & Reporting -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-chart-line theme-icon"></i>
+                            <h3 class="theme-title">Performance & Reporting</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Automation of reports</li>
+                                <li>• Interactive dashboards</li>
+                                <li>• Data collection tools</li>
+                                <li>• Automated summaries</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recruitment & Onboarding -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-user-plus theme-icon"></i>
+                            <h3 class="theme-title">Recruitment & Onboarding</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Resume screening tools</li>
+                                <li>• Interview coordination</li>
+                                <li>• Candidate communications</li>
+                                <li>• Onboarding automation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quality & Operational Excellence -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-award theme-icon"></i>
+                            <h3 class="theme-title">Quality & Operational Excellence</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Internal audit tools</li>
+                                <li>• Compliance check systems</li>
+                                <li>• Digital checklists</li>
+                                <li>• Review automation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Team Productivity -->
+                    <div class="theme-card">
+                        <div class="theme-header">
+                            <i class="fas fa-rocket theme-icon"></i>
+                            <h3 class="theme-title">Team Productivity</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                            <ul class="text-xs space-y-1">
+                                <li>• Daily planners & schedulers</li>
+                                <li>• Meeting notes automation</li>
+                                <li>• Knowledge base generators</li>
+                                <li>• Email assistants</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Others -->
+                    <div class="theme-card" style="grid-column: 1 / -1; max-width: 400px; margin: 0 auto;">
+                        <div class="theme-header">
+                            <i class="fas fa-plus-circle theme-icon"></i>
+                            <h3 class="theme-title">Others</h3>
+                        </div>
+                        <div class="theme-examples">
+                            <!-- <p class="text-sm text-gray-400 mb-2">As discussed during awareness sessions</p> -->
+                            <p class="text-xs text-gray-300">Innovate beyond the listed themes with your unique ideas!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hackathon Phases Section -->
+        <section class="mb-8">
+            <div class="content-card mb-6" style="grid-column: 1 / -1;">
+                <h2 class="card-title text-center mb-6">
+                    <i class="fas fa-calendar-alt card-icon"></i>
+                    Hackathon Phases
+                </h2>
+                
+                <!-- Phase 1 Dropdown -->
+                <div class="phase-dropdown mb-4">
+                    <button class="phase-header" onclick="togglePhase('phase1')">
+                        <div class="phase-title">
+                            <i class="fas fa-play phase-icon"></i>
+                            <span>Phase 1: Awareness Sessions & Workshops followed by Registrations</span>
+                        </div>
+                        <div class="phase-date">July 1 to July 15th</div>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="arrow1"></i>
+                    </button>
+                    <div class="phase-content" id="phase1">
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-users-cog"></i>
+                                Awareness Sessions & Workshops
+                            </h4>
+                            <p class="phase-description">During this phase Team Vikram & DTouch will conduct 3-6 awareness sessions & workshops via DC LIVE to:</p>
+                            <ul class="phase-list">
+                                <li>Explain the purpose and structure of the hackathon</li>
+                                <li>Introduce AI tools to use from the following list: <strong>ChatGPT, Softr, Firebase Studio, Make, Claude, Gemini</strong></li>
+                                <li>Share simple use cases and how to create basic prototypes, along with doubt clearing sessions</li>
+                            </ul>
+                            <div class="phase-note">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <strong>Important:</strong> Teams must attend at least one session to be eligible for shortlisting.
+                            </div>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-clipboard-list"></i>
+                                Submission Requirements
+                            </h4>
+                            <p class="phase-description">Each team must submit the following on or before July 15th:</p>
+                            <ul class="phase-list">
+                                <li>Full team details, including names and employee id for each team member and team captain details</li>
+                                <li>Problem statement</li>
+                                <li>Proposed solution using AI tools</li>
+                                <li>Tools planned for use from the list of tools provided</li>
+                                <li>Sample prototype (can be a Word document, PPT, diagram, or short video)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 Dropdown -->
+                <div class="phase-dropdown">
+                    <button class="phase-header" onclick="togglePhase('phase2')">
+                        <div class="phase-title">
+                            <i class="fas fa-play phase-icon"></i>
+                            <span>Phase 2: Evaluation & Publishing Shortlisted Teams</span>
+                        </div>
+                        <div class="phase-date">July 15th - July 21st</div>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="arrow2"></i>
+                    </button>
+                    <div class="phase-content" id="phase2">
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-gavel"></i>
+                                Evaluation Process
+                            </h4>
+                            <p class="phase-description">A jury comprising members from Project Vikram and other internal & external leaders will shortlist 15 teams to proceed to the next phase.</p>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-calendar-check"></i>
+                                Results Announcement
+                            </h4>
+                            <p class="phase-description">Publishing of shortlisted teams (July 21st)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 Dropdown -->
+                <div class="phase-dropdown mb-4">
+                    <button class="phase-header" onclick="togglePhase('phase3')">
+                        <div class="phase-title">
+                            <i class="fas fa-play phase-icon"></i>
+                            <span>Phase 3: Build Week</span>
+                        </div>
+                        <div class="phase-date">July 21 to July 28th</div>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="arrow3"></i>
+                    </button>
+                    <div class="phase-content" id="phase3">
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-tools"></i>
+                                Development Period
+                            </h4>
+                            <p class="phase-description">Shortlisted teams will build and submit a working version (a demo video) of their proposed tool on or before July 28th.</p>
+                            <div class="phase-note">
+                                <i class="fas fa-clock"></i>
+                                <strong>Recommended:</strong> Teams are encouraged to spend at least one hour per day on this.
+                            </div>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-headset"></i>
+                                Support Available
+                            </h4>
+                            <p class="phase-description">Teams may seek clarification or basic support from the Project Vikram team during the week.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 Dropdown -->
+                <div class="phase-dropdown mb-4">
+                    <button class="phase-header" onclick="togglePhase('phase4')">
+                        <div class="phase-title">
+                            <i class="fas fa-play phase-icon"></i>
+                            <span>Phase 4: Demo & Evaluation</span>
+                        </div>
+                        <div class="phase-date">July 28 to August 1</div>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="arrow4"></i>
+                    </button>
+                    <div class="phase-content" id="phase4">
+                        <div class="phase-section">
+                            <h4 class="phase-subtitle">
+                                <i class="fas fa-presentation"></i>
+                                Presentation Requirements
+                            </h4>
+                            <p class="phase-description">Each shortlisted team will present their:</p>
+                            <ul class="phase-list">
+                                <li>Problem statement</li>
+                                <li>Built or connected tool</li>
+                                <li>Live demo (5–10 minutes)</li>
+                                <li>Explanation of how the solution can help internal teams</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5 & 6 Timeline -->
+                <div class="timeline-section">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Phase 5: Awards & Recognition</h4>
+                            <div class="timeline-date">August 15</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4 class="timeline-title">Phase 6: Post-Hackathon</h4>
+                            <div class="timeline-date">August 15 to August 31</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prize Section -->
+        <section class="prize-section">
+            <h2 class="card-title text-center mb-4">
+                <i class="fas fa-gem card-icon"></i>
+                Prize Pool
+            </h2>
+            <div class="prize-amount">₹1,00,000</div>
+            <p class="text-gray-300 mb-4">Total Prize Pool</p>
+            
+            <div class="prize-breakdown">
+                <div class="prize-item">
+                    <div class="prize-position">🏆 Most Impactful Solution</div>
+                    <div class="prize-value">₹30,000</div>
+                    <div class="text-xs text-gray-400 mt-1">(Founder's Award)</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">🤖 Smartest Use of AI Tools</div>
+                    <div class="prize-value">₹20,000</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">🔄 Most Replicable Solution</div>
+                    <div class="prize-value">₹15,000</div>
+                    <div class="text-xs text-gray-400 mt-1">Across Teams</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">💡 Most Innovative Idea</div>
+                    <div class="prize-value">₹10,000</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">🏢 Best Solution per Centre</div>
+                    <div class="prize-value">₹5,000</div>
+                    <div class="text-xs text-gray-400 mt-1">(5 teams)</div>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-400 mt-4">
+                <i class="fas fa-info-circle"></i>
+                Mentors will be recognised separately with gift vouchers. All shortlisted participants get certificates.
+            </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Organizing Team Section -->
+        <section class="organizing-section">
+            <h2 class="card-title text-center mb-6">
+                <i class="fas fa-users-cog card-icon"></i>
+                Organizing Team
+            </h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-role">Hackathon Lead</div>
+                    <div class="member-name">Vaidheesh</div>
+                    <a href="mailto:vaidheesh@desicrew.com" class="member-email">vaidheesh@desicrew.com</a>
+                </div>
+            
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Gengashree</div>
+                    <a href="mailto:uma@desicrew.com" class="member-email">gengashree@desicrew.in</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Uma</div>
+                    <a href="mailto:uma@desicrew.com" class="member-email">umamageswari@desicrew.in</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Yashawini</div>
+                    <a href="mailto:yashawini@desicrew.com" class="member-email">yashawini@desicrew.com</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Rajnish</div>
+                    <a href="mailto:rajnish@desicrew.com" class="member-email">rajnishkumar@desicrew.com</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.content-card, .team-member').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Add click effects to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Only prevent default for non-registration buttons
+                    if (!this.href.includes('docs.google.com')) {
+                        e.preventDefault();
+                    }
+                    
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = e.clientX - e.target.offsetLeft + 'px';
+                    ripple.style.top = e.clientY - e.target.offsetTop + 'px';
+                    ripple.style.width = ripple.style.height = '20px';
+                    
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        });
+        
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Phase dropdown functionality
+        function togglePhase(phaseId) {
+            const content = document.getElementById(phaseId);
+            const header = content.previousElementSibling;
+            const arrow = document.getElementById('arrow' + phaseId.slice(-1));
+            
+            // Close all other phases first
+            const allPhases = ['phase1', 'phase2', 'phase3', 'phase4'];
+            allPhases.forEach(phase => {
+                if (phase !== phaseId) {
+                    const otherContent = document.getElementById(phase);
+                    const otherHeader = otherContent.previousElementSibling;
+                    const otherArrow = document.getElementById('arrow' + phase.slice(-1));
+                    
+                    otherHeader.classList.remove('active');
+                    otherContent.classList.remove('active');
+                    otherArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current phase
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            
+            // Rotate arrow
+            if (content.classList.contains('active')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+</html>

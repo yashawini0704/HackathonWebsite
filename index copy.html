@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmaan - AI Innovation Hackathon | DesiCrew</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('file:///C:/Users/DELL/Desktop/Countdown/AI.avif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -2;
+            filter: brightness(0.3) blur(2px);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 46, 0.7) 50%, rgba(22, 33, 62, 0.8) 100%);
+            z-index: -1;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00eaff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            max-height: 100px;
+            filter: drop-shadow(0 0 20px rgba(0, 230, 255, 0.5));
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #00eaff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 230, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00eaff 0%, #00b8cc 50%, #0099aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 230, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00eaff 0%, #00b8cc 100%);
+            color: #0a0a0a;
+            box-shadow: 0 0 30px rgba(0, 230, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 230, 255, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #00eaff;
+            border: 2px solid #00eaff;
+            box-shadow: 0 0 20px rgba(0, 230, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 230, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 230, 255, 0.4);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00eaff, #00b8cc, #00eaff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 230, 255, 0.1);
+            border-color: rgba(0, 230, 255, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #00eaff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: #00eaff;
+        }
+        
+        .card-content {
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+        
+        .prize-section {
+            background: linear-gradient(135deg, rgba(0, 230, 255, 0.1) 0%, rgba(0, 184, 204, 0.05) 100%);
+            border: 1px solid rgba(0, 230, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .prize-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00eaff;
+            text-shadow: 0 0 20px rgba(0, 230, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+        
+        .prize-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .prize-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 230, 255, 0.2);
+        }
+        
+        .prize-position {
+            font-weight: 600;
+            color: #00eaff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .organizing-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 230, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 230, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 230, 255, 0.1);
+        }
+        
+        .member-role {
+            font-size: 0.875rem;
+            color: #00eaff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .member-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-email {
+            font-size: 0.875rem;
+            color: #b0b0b0;
+            text-decoration: none;
+        }
+        
+        .member-email:hover {
+            color: #00eaff;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00eaff, transparent);
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.25rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        /* Generate particles */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="overlay"></div>
+    
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="logo-container">
+                <img src="file:///C:/Users/DELL/Downloads/desicrew_logo.png" alt="DesiCrew Logo" class="mx-auto mb-6" style="max-height: 100px; filter: drop-shadow(0 0 20px rgba(0, 230, 255, 0.5));">
+            </div>
+            
+            <p class="tagline">BUILDING THE FUTURE WITH AI</p>
+            <h1 class="main-title">NIRMAAN</h1>
+            <p class="subtitle" style="text-shadow: 0 0 15px rgba(0, 230, 255, 0.6); animation: glow 2s ease-in-out infinite alternate;">AI Innovation Hackathon <br> Organized by Project Vikram</p>
+            <div class="cta-buttons">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJYv7GhUy94dC-tCKYwkmzYUDMIbBC9wYapt9DH1MdPf1L5g/viewform?usp=header" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-rocket"></i>
+                    Register Now
+                </a>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <!-- Objective Section - Ful    l Width -->
+        <div class="content-card mb-8" style="grid-column: 1 / -1;">
+            <h2 class="card-title">
+                <i class="fas fa-bullseye card-icon"></i>
+                Objective
+            </h2>
+            <div class="card-content">
+                <p class="mb-4">To help all Crewmates explore and learn how to use AI tools (without coding) to solve real workplace problems. These solutions should help reduce manual work, save time, and make daily operations smoother across teams.</p>
+                <p>This will also help participants build confidence in using modern tools, stay relevant in their roles, and create real, usable & workable solutions to benefit teams across centres at DesiCrew.</p>
+            </div>
+        </div>
+
+        <!-- Other Sections - Grid Layout -->
+        <div class="content-grid">
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-users card-icon"></i>
+                    Participation
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                            <span>Teams of 5 DesiCrew employees</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                            <span>Each team to be captained by 1 DNext leader</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-gavel card-icon"></i>
+                    Judging Criteria
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>The actual problem</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Ease of use by other teams</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-star text-yellow-400 mt-1"></i>
+                            <span>Effort and learning demonstrated</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">
+                    <i class="fas fa-trophy card-icon"></i>
+                    Post Hackathon
+                </h2>
+                <div class="card-content">
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>Top projects will be refined and rolled out with support from Vikram team</span>
+                        </li>
+
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-blue-400 mt-1"></i>
+                            <span>All working solutions will be added to an internal "AI Solutions Library"</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prize Section -->
+        <section class="prize-section">
+            <h2 class="card-title text-center mb-4">
+                <i class="fas fa-gem card-icon"></i>
+                Prize Pool
+            </h2>
+            <div class="prize-amount">₹1,00,000</div>
+            <p class="text-gray-300 mb-4">Total Prize Pool (Subject to revision)</p>
+            
+            <div class="prize-breakdown">
+                <div class="prize-item">
+                    <div class="prize-position">🥇 Winner</div>
+                    <div class="prize-value">₹50,000</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">🥈 1st Runner-up</div>
+                    <div class="prize-value">₹30,000</div>
+                </div>
+                <div class="prize-item">
+                    <div class="prize-position">🥉 2nd Runner-up</div>
+                    <div class="prize-value">₹20,000</div>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-400 mt-4">
+                <i class="fas fa-info-circle"></i>
+                Mentors will be recognised separately with gift vouchers. All shortlisted participants get certificates.
+            </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Organizing Team Section -->
+        <section class="organizing-section">
+            <h2 class="card-title text-center mb-6">
+                <i class="fas fa-users-cog card-icon"></i>
+                Organizing Team
+            </h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-role">Hackathon Lead</div>
+                    <div class="member-name">Vaidheesh</div>
+                    <a href="mailto:vaidheesh@desicrew.com" class="member-email">vaidheesh@desicrew.com</a>
+                </div>
+            
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Gengashree</div>
+                    <a href="mailto:uma@desicrew.com" class="member-email">gengashree@desicrew.in</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Uma</div>
+                    <a href="mailto:uma@desicrew.com" class="member-email">umamageswari@desicrew.in</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Yashawini</div>
+                    <a href="mailto:yashawini@desicrew.com" class="member-email">yashawini@desicrew.com</a>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-role">Mentor & Judge</div>
+                    <div class="member-name">Rajnish</div>
+                    <a href="mailto:rajnish@desicrew.com" class="member-email">rajnishkumar@desicrew.com</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.content-card, .team-member').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Add click effects to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Only prevent default for non-registration buttons
+                    if (!this.href.includes('docs.google.com')) {
+                        e.preventDefault();
+                    }
+                    
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = e.clientX - e.target.offsetLeft + 'px';
+                    ripple.style.top = e.clientY - e.target.offsetTop + 'px';
+                    ripple.style.width = ripple.style.height = '20px';
+                    
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        });
+        
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
